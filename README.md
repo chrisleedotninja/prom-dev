@@ -28,13 +28,13 @@ Kill stack:
 
 
 
-Prometheus: http://localhost:9090
-Alertmanager: http://localhost:9093
-Grafana: http://localhost:3000
+Prometheus: http://localhost:9090  
+Alertmanager: http://localhost:9093  
+Grafana: http://localhost:3000  
 - User: admin
-- Pass: admin
-YACE: http://localhost:5000/metrics
-WebMetrics: http://localhost:9080/metrics
+- Pass: admin  
+YACE: http://localhost:5000/metrics  
+WebMetrics: http://localhost:9080/metrics  
 
 
 
