@@ -1,0 +1,102 @@
+# YACE Configuration
+apiVersion: v1alpha1
+discovery:
+  exportedTagsOnMetrics:
+    #sqs:
+      #- environment
+      #- org_name
+      #- org_id
+    alb:
+      - environment
+      - service
+    #rds:
+      #- service
+      #- workload-type
+  jobs:
+  - type: alb
+    regions:
+      - us-west-2
+    metrics:
+      - name: RequestCount
+        statistics:
+        - Sum
+        period: 60
+        length: 300
+      - name: TargetResponseTime
+        statistics:
+        - Average
+        - p95
+        - p90
+        - p75
+        - p50
+        length: 300
+      - name: HTTPCode_Target_4XX_Count
+        statistics:
+        - Sum
+        length: 300
+      - name: HTTPCode_Target_2XX_Count
+        statistics:
+        - Sum
+        length: 300
+      - name: HTTPCode_Target_5XX_Count
+        statistics:
+        - Sum
+        period: 60
+        length: 300
+  #- type: billing
+    #regions:
+      #- us-east-1
+    #metrics:
+      #- name: EstimatedCharges
+        #statistics:
+        #- Maximum
+        #period: 21600
+        #length: 21600
+  #- type: rds
+    #regions:
+      #- us-west-2
+    #metrics:
+      #- name: CPUUtilization
+        #statistics:
+        #- Average
+        #period: 60
+        #length: 60
+      #- name: DatabaseConnections
+        #statistics:
+        #- Sum
+        #period: 60
+        #length: 60
+      #- name: FreeableMemory
+        #statistics:
+        #- Sum
+        #period: 60
+        #length: 60
+  #- type: sqs
+    #regions:
+      #- us-west-2
+    #metrics:
+      #- name: ApproximateNumberOfMessagesVisible
+        #statistics:
+        #- Sum
+        #period: 60
+        #length: 60
+      #- name: ApproximateAgeOfOldestMessage
+        #statistics:
+        #- Sum
+        #period: 60
+        #length: 60
+      #- name: NumberOfMessagesReceived
+        #statistics:
+        #- Sum
+        #period: 60
+        #length: 60
+      #- name: NumberOfMessagesSent
+        #statistics:
+        #- Sum
+        #period: 60
+        #length: 60
+      #- name: ApproximateAgeOfOldestMessage
+        #statistics:
+        #- Sum
+        #period: 60
+        #length: 60
