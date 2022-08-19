@@ -127,10 +127,11 @@ services:
       restart_policy:
           condition: on-failure
   yace:
-    image: ghcr.io/nerdswords/yet-another-cloudwatch-exporter:v0.32.0-alpha
+    image: ghcr.io/nerdswords/yet-another-cloudwatch-exporter:v0.38.0-alpha@sha256:63546540f74717564153dfae202b97df87e2991c07c986f0fb80651ba2d1263e
     volumes:
       - ./yace/config.yml:/tmp/config.yml
     command:
+      - '--scraping-interval=60'
       - '--config.file=/tmp/config.yml'
       - '--debug'
     env_file:
@@ -139,6 +140,26 @@ services:
       - monitor-net
     ports:
       - 5000:5000
+    restart: always
+    deploy:
+      mode: global
+      restart_policy:
+          condition: on-failure
+
+  pg_exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.11.1
+    volumes:
+      - ./pg_exporter/queries.yaml:/tmp/queries.yaml
+    command:
+      - '--disable-default-metrics'
+      - '--extend.query-path=/tmp/queries.yaml'
+      - '--log.level=debug'
+    env_file:
+      - ./pg_exporter/env.list
+    networks:
+      - monitor-net
+    ports:
+      - 9187:9187
     restart: always
     deploy:
       mode: global
