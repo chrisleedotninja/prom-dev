@@ -1,0 +1,7 @@
+rows:
+  query: "select count(*) from table"
+  master: true
+  metrics:
+    - count:
+        usage: "GAUGE"
+        description: "Count of rows"
