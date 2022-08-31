@@ -47,6 +47,16 @@ scrape_configs:
       type: 'A'
       port: 5000
 
+  - job_name: 'pg_exporter'
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+
+    dns_sd_configs:
+    - names:
+      - 'tasks.pg_exporter'
+      type: 'A'
+      port: 9187
+
   - job_name: 'cadvisor'
 
     # Override the global default and scrape targets from this job every 5 seconds.
