@@ -8,7 +8,6 @@ networks:
   monitor-net:
 
 services:
-
   prometheus:
     image: prom/prometheus
     volumes:
@@ -35,7 +34,6 @@ services:
           - node.role==manager
       restart_policy:
         condition: on-failure
-
   node-exporter:
     image: prom/node-exporter
     volumes:
@@ -161,6 +159,22 @@ services:
     ports:
       - 9187:9187
     restart: always
+    deploy:
+      mode: global
+      restart_policy:
+          condition: on-failure
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter
+    volumes:
+      - ./blackbox/blackbox.yml:/tmp/blackbox.yml
+    command: 
+      - '--log.level=info'
+      - '--config.file=/tmp/blackbox.yml'
+    ports:
+      - 9115:9115
+    networks:
+      - monitor-net
     deploy:
       mode: global
       restart_policy:
